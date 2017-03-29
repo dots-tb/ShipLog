@@ -8,7 +8,9 @@ This plugin lets you see stdio on the vita
 
 //Special thanks to Team_Molecule for Taihen (special thanks to xyz), Mai for MaiDump
 
-//thanks to xerpi for being underrated (and logging functions)
+//thanks to xerpi for being underrated (and logging functions for debugging)
+
+//now that I think of it, I could probably just use printf now...
 ## To-Do
  * net
  * usb
