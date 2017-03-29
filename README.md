@@ -10,11 +10,11 @@ This plugin lets you see stdio on the vita
 
 //thanks to xerpi for being underrated (and logging functions)
 
-##Installation
+#Installation
 Add the library to your "*KERNEL" section in the TaiHen config (ux0:/tai/config.txt)
 ux0:tai/backdoor.exe.skprx
 
-##Usage
+#Usage
 It will create logs at "ux0:/dump/*"
 
 This is because it uses xerpi's code.
