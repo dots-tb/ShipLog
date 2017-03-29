@@ -33,3 +33,4 @@ This is because it uses xerpi's code.
  * sys - bringing me on the decompile team
  * coburn64 - unity engine help
  * xepri - LOGging from that one code snippet
+ * everyone on the kancolle kai vita discord
