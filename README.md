@@ -3,8 +3,11 @@ This plugin lets you see stdio on the vita
 
 
 //Put together by dots_tb
+
 //Created for Kancolle Kai Vita translation and decompile team (expecially you senpai ~<3)
+
 //Special thanks to Team_Molecule for Taihen (special thanks to xyz), Mai for MaiDump
+
 //thanks to xerpi for being underrated (and logging functions)
 
 ##Installation
