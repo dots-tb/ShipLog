@@ -12,6 +12,7 @@ This plugin lets you see stdio on the vita
 
 # Installation
 Add the library to your "*KERNEL" section in the TaiHen config (ux0:/tai/config.txt)
+
 ux0:tai/backdoor.exe.skprx
 
 # Usage
