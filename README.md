@@ -11,11 +11,10 @@ This plugin lets you see stdio on the vita
 //thanks to xerpi for being underrated (and logging functions)
 ## To-Do
  * net
- 
  * usb
- 
  * others
-
+ * user plugin
+ * exports
 ## Installation
 Add the library to your "*KERNEL" section in the TaiHen config (ux0:/tai/config.txt)
 
@@ -28,11 +27,7 @@ This is because it uses xerpi's code.
 
 ## Further Thanks:
  * xyz - sceIoWrite tip
- 
  * #vitasdk - putting up with stupid questions (I was that guy..)
- 
  * sys - bringing me on the decompile team
- 
  * coburn64 - unity engine help
- 
  * xepri - LOGging from that one code snippet
