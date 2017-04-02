@@ -35,7 +35,7 @@ User app will come soon.
 ## Further Thanks:
  * xyz - sceIoWrite tip
  * #vitasdk - putting up with stupid questions (I was that guy..)
- * sys - bringing me on the decompile team
+ * yasen - bringing me on the decompile team
  * coburn64 - unity engine help
  * xepri - LOGging from that one code snippet
  * everyone on the kancolle kai vita discord
