@@ -1,26 +1,29 @@
 cmake_minimum_required(VERSION 2.8)
-set(RELEASE,0)
-set(CMAKE_SYSTEM_NAME "Generic")
-set(CMAKE_C_COMPILER "arm-vita-eabi-gcc")
-set(CMAKE_CXX_COMPILER "arm-vita-eabi-g++")
+
+if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  if(DEFINED ENV{VITASDK})
+    set(CMAKE_TOOLCHAIN_FILE "$ENV{VITASDK}/share/vita.toolchain.cmake" CACHE PATH "toolchain file")
+  else()
+    message(FATAL_ERROR "Please define VITASDK to point to your SDK path!")
+  endif()
+endif()
 
 project(backdoor.exe)
+include("$ENV{VITASDK}/share/vita.cmake" REQUIRED)
 
-set(CMAKE_C_FLAGS "-Wl,-q -Wall -O3 -std=gnu99")
-set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -fno-rtti -fno-exceptions")
-
-include_directories(
-)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wl,-q -Wall -O3 -std=gnu99")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -nostdlib")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fno-rtti -fno-exceptions")
 
 link_directories(
 	${CMAKE_CURRENT_BINARY_DIR}
 )
 
-add_executable(${PROJECT_NAME}.elf
+add_executable(${PROJECT_NAME}
 	backdoor.exe.c
 )
 
-target_link_libraries(${PROJECT_NAME}.elf
+target_link_libraries(${PROJECT_NAME}
 	gcc
 	taihenForKernel_stub
 	SceStdio_stub
@@ -28,20 +31,26 @@ target_link_libraries(${PROJECT_NAME}.elf
 	SceSysclibForDriver_stub
 	SceSysmemForDriver_stub
 	SceUsbSerialForDriver_stub
+	SceNetPsForDriver_stub
 	SceSysmemForKernel_stub
 	SceThreadmgrForDriver_stub
 	SceIofilemgr_stub
-	SceDebugForDriver_stub
+	SceUdcdForDriver_stub
+
+)
+vita_create_self(${PROJECT_NAME}.skprx ${PROJECT_NAME}
+  UNSAFE
+  CONFIG ${CMAKE_SOURCE_DIR}/exports.yml
+)
+vita_create_stubs(${PROJECT_NAME}-stubs ${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/exports.yml
+  KERNEL
 )
 
-set_target_properties(${PROJECT_NAME}.elf
-	PROPERTIES LINK_FLAGS "-nostdlib"
-	COMPILE_FLAGS "-D__VITA_KERNEL__"
+install(DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-stubs/
+  DESTINATION lib
+  FILES_MATCHING PATTERN "*.a"
 )
 
-add_custom_target(${PROJECT_NAME}.skprx ALL
-	COMMAND vita-elf-create -e ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}.yml ${PROJECT_NAME}.elf ${PROJECT_NAME}.velf
-	COMMAND vita-make-fself ${PROJECT_NAME}.velf ${PROJECT_NAME}.skprx
+install(FILES backdoor.exe.h
+  DESTINATION include
 )
-add_dependencies(${PROJECT_NAME}.skprx ${PROJECT_NAME}.elf)
-
