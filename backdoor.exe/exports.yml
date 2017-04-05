@@ -1,4 +1,4 @@
-backdoor.exe:
+backdoor_exe:
   attributes: 0
   version:
     major: 1
@@ -7,10 +7,11 @@ backdoor.exe:
     start: module_start
     stop: module_stop
   modules:
-    backdoor.exe:
+    backdoor_exe:
       syscall: true
       functions:
         - shipLogBufLength
         - shipLogcpyBufToUsr
         - shipLogBufClear
         - shipLogWriteCB
+        - shipLogDumpToDisk

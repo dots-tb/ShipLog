@@ -8,7 +8,7 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
   endif()
 endif()
 
-project(backdoor.exe)
+project(backdoor_exe)
 include("$ENV{VITASDK}/share/vita.cmake" REQUIRED)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wl,-q -Wall -O3 -std=gnu99")
@@ -20,7 +20,7 @@ link_directories(
 )
 
 add_executable(${PROJECT_NAME}
-	backdoor.exe.c
+	backdoor_exe.c
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -30,12 +30,9 @@ target_link_libraries(${PROJECT_NAME}
 	SceIofilemgrForDriver_stub
 	SceSysclibForDriver_stub
 	SceSysmemForDriver_stub
-	SceUsbSerialForDriver_stub
-	SceNetPsForDriver_stub
 	SceSysmemForKernel_stub
 	SceThreadmgrForDriver_stub
 	SceIofilemgr_stub
-	SceUdcdForDriver_stub
 
 )
 vita_create_self(${PROJECT_NAME}.skprx ${PROJECT_NAME}
@@ -51,6 +48,6 @@ install(DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-stubs/
   FILES_MATCHING PATTERN "*.a"
 )
 
-install(FILES backdoor.exe.h
+install(FILES backdoor_exe.h
   DESTINATION include
 )

@@ -2,8 +2,13 @@
 
 //Put together by dots_tb
 //Created for Kancolle Kai Vita translation and dev team (expecially you senpai ~<3)
-//Special thanks to Team_Molecule for Taihen (special thanks to xyz), Mai for MaiDump
-//thanks to xerpi for being underrated (and logging functions)
+//Special thanks to Team_Molecule for Taihen (special thanks to xyz)
+//thanks to xerpi for being underrated (and logging functions/netdebug), frangarcj for oclock
+//Freakler for common dialog, TheFlow for VitaShell
+
+//Dialog functions: 
+// https://github.com/Freakler/vita-uriCaller
+
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
@@ -13,17 +18,23 @@
 #include <psp2kern/kernel/sysmem.h>
 #include <psp2kern/kernel/cpu.h>
 #include <psp2kern/io/fcntl.h>
-
-#include <psp2/sysmodule.h>
-#include <taihen.h>
-#include "backdoor.exe.h"
+#include <psp2kern/net/net.h>
 #include <psp2kern/io/fcntl.h>
+#include <taihen.h>
+
+#include "backdoor_exe.h"
 
 #define DUMP_PATH "ux0:dump/"
 #define LOG_FILE DUMP_PATH "logger.txt"
+#define BUF_SIZE 1024*16
 
-static void log_reset();
+static int __stdout_fd = 1073807367;
+static char buffer[BUF_SIZE];
+static int buf_pos = 0;
+static SceUID g_hooks[2];
+
 static void log_write(const char *buffer, size_t length);
+void copyFromUserToBuf(const void *buf, size_t length);
 
 #define LOG(...) \
 	do { \
@@ -31,13 +42,7 @@ static void log_write(const char *buffer, size_t length);
 		snprintf(buffer, sizeof(buffer), ##__VA_ARGS__); \
 		log_write(buffer, strlen(buffer)); \
 	} while (0)
-static SceUID g_hooks[4];
 
-
-static int __stdout_fd = 1073807367;
-#define BUF_SIZE 1024*16
-static char buffer[BUF_SIZE];
-static int buf_pos = 0;
 static tai_hook_ref_t ref_hook0;
 int sceIoWrite_patched(SceUID fd, const void *data, SceSize size) {
 	if(fd==__stdout_fd) {
@@ -63,13 +68,14 @@ int module_start(SceSize argc, const void *args)
 {
 	
 
-	LOG("logger test\n");
+	LOG("ShipLog\n");
 	g_hooks[0] = taiHookFunctionExportForKernel(KERNEL_PID,
 		&ref_hook0, "SceIofilemgr",0xF2FF276E,
 		0x34EFD876, sceIoWrite_patched); 
 	g_hooks[1] = taiHookFunctionExportForKernel(KERNEL_PID,
 		&ref_hook1, "SceProcessmgr", 0x2DD91812,
 		0xE5AA625C,sceKernelGetStdout_patched);
+
 	LOG("hooks:\n");
 	LOG("hooks[sceIoWrite]: %d\n", g_hooks[0]);
 	LOG("hooks[sceKernelGetStdout]: %d\n", g_hooks[1]);
@@ -81,7 +87,7 @@ int module_stop(SceSize argc, const void *args)
 {
  if (g_hooks[0] >= 0) taiHookReleaseForKernel(g_hooks[0], ref_hook0);
  if (g_hooks[1] >= 0) taiHookReleaseForKernel(g_hooks[1], ref_hook1);
- log_write(buffer, buf_pos);
+
 	return SCE_KERNEL_STOP_SUCCESS;
 }
 void log_reset()
@@ -127,20 +133,27 @@ void copyFromUserToBuf(const void *buf, size_t length)
 		sent = sending;
 	}
 }
-//user exports, not sure if they work
+
 int shipLogBufLength() {
 	int state;
 	int ret;
 	ENTER_SYSCALL(state);
 	ret = buf_pos;
 	EXIT_SYSCALL(state);
-	return 0;
+	return ret;
 }
-void shipLogcpyBufToUsr(const void *dest, int length) {
+//not sure how secure this is
+int shipLogcpyBufToUsr(const void *dest, int pos, int length) {
 	int state;
 	ENTER_SYSCALL(state);
-	ksceKernelMemcpyKernelToUser((uintptr_t)dest, buffer,length);
+	if((BUF_SIZE >= pos + length)&&
+		(pos >= 0) && (length >= 0))
+		ksceKernelMemcpyKernelToUser((uintptr_t)dest, buffer + pos,length);
+		EXIT_SYSCALL(state);
+		return length;
 	EXIT_SYSCALL(state);
+	return -1;
+	
 }
 void shipLogBufClear() {
 	int state;
@@ -150,4 +163,13 @@ void shipLogBufClear() {
 	EXIT_SYSCALL(state);
 }
 int shipLogWriteCB(const void *buf, int size) {
+}
+void shipLogDumpToDisk() {
+	int state;
+	ENTER_SYSCALL(state);
+	log_write(buffer, buf_pos);
+	//probably should use the function above.
+	memset(buffer,0,BUF_SIZE);
+	buf_pos = 0;
+	EXIT_SYSCALL(state);
 }
