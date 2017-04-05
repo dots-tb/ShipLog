@@ -40,7 +40,7 @@ To use net, enable the plugin for a game.
 
 Run netcat:
 
-  nc -l -p <port>
+  nc -l -p 3333
 
 Set up Ip and Port in WarRoom/Configuration app
 
