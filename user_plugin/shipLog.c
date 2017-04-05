@@ -63,7 +63,7 @@ int sceDisplaySetFrameBuf_patched(const SceDisplayFrameBuf *pParam, int sync) {
 		blit_string(10, 30,string);
 	}
 	return TAI_CONTINUE(int, ref_hook1, pParam, sync);
-} 
+}
 
 void _start() __attribute__ ((weak, alias ("module_start")));
 
