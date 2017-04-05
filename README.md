@@ -12,7 +12,6 @@ This plugin lets you see stdio on the vita
 
 //Freakler for common dialog, TheFlow for VitaShell
 
-//now that I think of it, I could probably just use printf now...
 ## To-Do
  * usb
  * others
