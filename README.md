@@ -1,36 +1,43 @@
-# ShipLog (PRE-RELEASE 2)
+# ShipLog (RELEASE 1)
 This plugin lets you see stdio on the vita
 
 
 //Put together by dots_tb
 
-//Created for Kancolle Kai Vita translation and dev* team (expecially you senpai ~<3)
+//Created for Kancolle Kai Vita translation and dev team (expecially you senpai ~<3)
 
-//Special thanks to Team_Molecule for Taihen (special thanks to xyz), Mai for MaiDump
+//Special thanks to Team_Molecule for Taihen (special thanks to xyz)
 
-//thanks to xerpi for being underrated (and logging functions for debugging)
+//thanks to xerpi for being underrated (and logging functions/netdebug), frangarcj for oclock
 
-//now that I think of it, I could probably just use printf now...
+//Freakler for common dialog, TheFlow for VitaShell
+
 ## To-Do
- * net
  * usb
  * others
- * user plugin
  * exports
 ## Installation
 Add the library to your "*KERNEL" section in the TaiHen config (ux0:/tai/config.txt)
 
-ux0:tai/backdoor.exe.skprx
+ux0:tai/backdoor_exe.skprx
+
+Add the the user plugin to a game in the TaiHen config (ux0:/tai/config.txt)
+
+*titleid
+
+ux0:tai/shipLog.suprx
+
+Move the net_plugin to the data directory:
+
+ux0:data/shipLog/shipLog_net.suprx
 
 ## Usage
 It will create logs at "ux0:/dump/*"
 
 This is because it uses xerpi's code.
-### READ ME
+## READ ME
 
-AT THE MOMENT THERE IS NO WAY TO FORCE IT OUT OF MEMORY, YOU MUST SPAM THE LOGS (I USUALLY JUST START FTP AND CLOSE IT OVER AND OVER AGAIN).
-
-User app will come soon. 
+I am not responsible for anything that happens to your vita.
 
 ## Further Thanks:
  * xyz - sceIoWrite tip
@@ -38,5 +45,6 @@ User app will come soon.
  * yasen - bringing me on the dev* team
  * coburn64 - unity engine help
  * xepri - LOGging from that one code snippet
+ * frangarcj for oclock, Freakler for common dialog, TheFlow for VitaShell
  * everyone on the kancolle kai vita discord
  * thank you yifan lu for trying to help
