@@ -19,22 +19,34 @@ This plugin lets you see stdio on the vita
 ## Installation
 Add the library to your "*KERNEL" section in the TaiHen config (ux0:/tai/config.txt)
 
-ux0:tai/backdoor_exe.skprx
+  ux0:tai/backdoor_exe.skprx
 
 Add the the user plugin to a game in the TaiHen config (ux0:/tai/config.txt)
 
-*titleid
+  *titleid
 
-ux0:tai/shipLog.suprx
+  ux0:tai/shipLog.suprx
 
 Move the net_plugin to the data directory:
 
-ux0:data/shipLog/shipLog_net.suprx
+  ux0:data/shipLog/shipLog_net.suprx
 
 ## Usage
 It will create logs at "ux0:/dump/*"
 
 This is because it uses xerpi's code.
+
+To use net, enable the plugin for a game.
+
+Run netcat:
+
+  nc -l -p <port>
+
+Set up Ip and Port in WarRoom/Configuration app
+
+The whole buffer will be redirected to netcat when game is running.
+
+
 ## READ ME
 
 I am not responsible for anything that happens to your vita.
