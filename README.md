@@ -23,13 +23,13 @@ Add the library to your "*KERNEL" section in the TaiHen config (ux0:/tai/config.
 
 Add the the user plugin to a game in the TaiHen config (ux0:/tai/config.txt)
 
-  *titleid
+  * *titleid
 
-  ux0:tai/shipLog.suprx
+  * ux0:tai/shipLog.suprx
 
 Move the net_plugin to the data directory:
 
-  ux0:data/shipLog/shipLog_net.suprx
+  * ux0:data/shipLog/shipLog_net.suprx
 
 ## Usage
 It will create logs at "ux0:/dump/*"
@@ -40,7 +40,7 @@ To use net, enable the plugin for a game.
 
 Run netcat:
 
-  nc -l -p 3333
+  * nc -l -p 3333
 
 Set up Ip and Port in WarRoom/Configuration app 
 
