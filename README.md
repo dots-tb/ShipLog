@@ -42,7 +42,11 @@ Run netcat:
 
   nc -l -p 3333
 
-Set up Ip and Port in WarRoom/Configuration app
+Set up Ip and Port in WarRoom/Configuration app 
+
+(This is the IP of the machine running netcat)
+
+(The port is the one you bind on netcat)
 
 The whole buffer will be redirected to netcat when game is running.
 
