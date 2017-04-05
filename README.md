@@ -15,7 +15,6 @@ This plugin lets you see stdio on the vita
 ## To-Do
  * usb
  * others
- * exports
 ## Installation
 Add the library to your "*KERNEL" section in the TaiHen config (ux0:/tai/config.txt)
 
