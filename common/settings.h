@@ -6,7 +6,7 @@
 
 #define CONFIG_FILE APP_DATA "config"
 #define KPLUGIN_FILE PLUGIN_DIR KPLUGIN_NAME
-#define NPLUGIN_FILE PLUGIN_DIR NPLUGIN_NAME
+#define NPLUGIN_FILE APP_DATA NPLUGIN_NAME
 
 void setIP(const char *ip);
 char *getIP();
