@@ -14,7 +14,7 @@ int renderMenu(vita2d_pgf *pgf, int page, int pos){
 	vita2d_pgf_draw_text(pgf, 30, 70+25*entries, pos == entries++ ? ACTIVE_COL : INACTIVE_COL, 1.0f, (TEXT));
 	switch(page) {
 		case 0:
-			TITLE("SHIPLOG");
+			TITLE("SHIPLOG - WAR ROOM");
 			SUB("Put together by dots_tb for kancolle kai translation team");
 			MENU_OPTION_F("DUMP LOG BUFFER TO DISK: %d", getLengthOfBuffer());
 			MENU_OPTION("NETWORK CONFIGURATION");
