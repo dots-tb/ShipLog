@@ -81,7 +81,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 ## Create Vita files
-vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME})
+vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME} UNSAFE)
 # The FILE directive lets you add additional files to the VPK, the syntax is 
 # FILE src_path dst_path_in_vpk. In this case, we add the LiveArea paths.
 vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
